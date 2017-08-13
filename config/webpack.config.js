@@ -1,0 +1,49 @@
+import fs from 'fs';
+import path from 'path';
+import _ from 'underscore';
+import webpack from 'webpack';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+
+export default {
+  entry: {
+    vendor: ['underscore'],
+    app: path.resolve(__dirname, '../src/client'),
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../dist'),
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'less-loader' },
+          ],
+        }),
+      }
+    ],
+  },
+  resolve: {
+    extensions: ['.js', '.vue', '.less'],
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'index.html'),
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: Infinity,
+    }),
+    new ExtractTextPlugin('[name].css'),
+  ],
+}
