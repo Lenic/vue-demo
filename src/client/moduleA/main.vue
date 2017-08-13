@@ -1,6 +1,20 @@
 <template>
   <div>
-    <span>Module A</span>
-    <router-link to="/module-b">To B</router-link>
+    <div>Module A</div>
+    <span>doubleCount:</span>
+    <span>{{doubleCount}}</span>
+    <button @click="increase()">+</button>
+    <button @click="decrease()">-</button>
+    <div>
+      <router-link to="/module-b">To B</router-link>
+    </div>
   </div>
 </template>
+<script>
+import { mapGetters, mapActions } from 'vuex';
+
+export default {
+  computed: mapGetters('moduleA', ['doubleCount']),
+  methods: mapActions('moduleA', ['increase', 'decrease']),
+}
+</script>

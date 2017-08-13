@@ -2,14 +2,18 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Router from 'vue-router';
 
-
 import App from './app';
-import moduleA from './moduleA';
-import moduleB from './moduleB';
+
+import { route as ra, store as moduleA } from './moduleA';
+import { route as rb, store as moduleB } from './moduleB';
 
 Vue.use(Vuex);
 Vue.use(Router);
 Vue.config.productionTip = false;
+
+const store = new Vuex.Store({
+  modules: { moduleA, moduleB, },
+});
 
 const defaultRoute = {
   path: '/',
@@ -17,10 +21,11 @@ const defaultRoute = {
 };
 
 const router = new Router({
-  routes: [moduleA, moduleB, defaultRoute],
+  routes: [ra, rb, defaultRoute],
 });
 
 new Vue({
+  store,
   router,
   el: "#container",
   render: h => h(App),
