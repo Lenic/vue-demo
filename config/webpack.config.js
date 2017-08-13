@@ -22,6 +22,11 @@ export default {
         use: 'babel-loader',
       },
       {
+        test: /\.vue$/,
+        exclude: /node_modules/,
+        use: 'vue-loader',
+      },
+      {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
