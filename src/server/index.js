@@ -9,7 +9,7 @@ const app = new Express()
   , router = new Router();
 
 // add mock logic
-// require('./logic/users')(router);
+require('./logic/users')(router);
 
 app.use('/api', router)
   .use(webpackMiddleware(webpack(webpackConfig), {

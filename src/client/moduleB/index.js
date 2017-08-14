@@ -1,3 +1,5 @@
+import ajax from './config';
+
 export const route = {
   path: '/module-b',
   component: resolve => require.ensure([], require => resolve(require('./main'))),
@@ -6,18 +8,21 @@ export const route = {
 export const store = {
   namespaced: true,
   state: {
-    count: 111,
+    people: [],
   },
   getters: {
-    doubleCount: ({ count }) => count * 2,
+    count: ({ people }) => people.length,
   },
   mutations: {
-    add: (state, n = 1) => state.count += n,
-    sub: (state, n = 1) => state.count -= n,
+    set: (state, list) => state.people = list,
   },
-  action: {
-    increase: ({ commit }, n = 1) => commit('add', n),
-    decrease: ({ commit }, n = 1) => commit('sub', n),
+  actions: {
+    fetch: ({ commit }, api) => {
+      api.fetch()
+        .then(v => commit('set', v))
+        .catch(e => console.error(e));
+    },
+    clear: ({ commit }) => commit('set', []),
   },
 };
 

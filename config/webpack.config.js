@@ -7,7 +7,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
   entry: {
-    vendor: ['underscore'],
+    vendor: ['underscore', 'es6-promise/auto', 'axios'],
     app: path.resolve(__dirname, '../src/client'),
   },
   output: {
@@ -40,6 +40,9 @@ export default {
   },
   resolve: {
     extensions: ['.js', '.vue', '.less'],
+    alias: {
+      '$lib': path.resolve(__dirname, '../src/lib'),
+    }
   },
   plugins: [
     new HtmlWebpackPlugin({
