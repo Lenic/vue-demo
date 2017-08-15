@@ -19,6 +19,7 @@ export default {
       'vue',
       'vuex',
       'vue-router',
+      resolve('../src/lib/utils'),
       resolve('../src/res/css'),
     ],
     app: resolve('../src/client'),

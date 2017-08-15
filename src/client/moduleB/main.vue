@@ -24,16 +24,23 @@
 </template>
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
+
+import linkStore from '$lib/utils/mixins/link-store';
+
 import ajax from './config';
+import store from './store';
+
+const moduleName = 'moduleB';
 
 export default {
+  mixins: [linkStore(moduleName, store)],
   data: () => ({
     dataApi: ajax({ url: '/users' }),
   }),
   computed: {
-    ...mapState('moduleB', ['people']),
-    ...mapGetters('moduleB', ['count']),
+    ...mapState(moduleName, ['people']),
+    ...mapGetters(moduleName, ['count']),
   },
-  methods: mapActions('moduleB', ['fetch', 'clear']),
+  methods: mapActions(moduleName, ['fetch', 'clear']),
 };
 </script>

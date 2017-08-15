@@ -13,16 +13,17 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
+import linkStore from '$lib/utils/mixins/link-store';
+import useStyle from '$lib/utils/mixins/use-style';
+
 import style from './css';
+import store from './store';
+
+const moduleName = 'moduleA';
 
 export default {
-  computed: mapGetters('moduleA', ['doubleCount']),
-  methods: mapActions('moduleA', ['increase', 'decrease']),
-  mounted() {
-    style.use();
-  },
-  beforeDestroy() {
-    style.unuse();
-  },
+  mixins: [linkStore(moduleName, store), useStyle(style)],
+  computed: mapGetters(moduleName, ['doubleCount']),
+  methods: mapActions(moduleName, ['increase', 'decrease']),
 };
 </script>
