@@ -11,7 +11,7 @@ function resolve (dir) {
 
 export default {
   entry: {
-    vendor: ['underscore', 'es6-promise/auto', 'axios'],
+    vendor: ['underscore', 'es6-promise/auto', 'axios', 'vue', 'vuex', 'vue-router'],
     app: resolve('../src/client'),
   },
   output: {
@@ -63,7 +63,7 @@ export default {
       template: resolve('index.html'),
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
+      name: ['vendor', 'manifest'],
       minChunks: Infinity,
     }),
     new ExtractTextPlugin('[name].css'),
