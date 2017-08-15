@@ -46,6 +46,7 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'Vuex Test',
       template: path.resolve(__dirname, 'index.html'),
     }),
     new webpack.optimize.CommonsChunkPlugin({
