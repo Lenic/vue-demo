@@ -5,17 +5,30 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
+function resolve (dir) {
+  return path.join(__dirname, dir);
+}
+
 export default {
   entry: {
     vendor: ['underscore', 'es6-promise/auto', 'axios'],
-    app: path.resolve(__dirname, '../src/client'),
+    app: resolve('../src/client'),
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '../dist'),
+    path: resolve('../dist'),
   },
   module: {
     rules: [
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [resolve('../src/client'), resolve('../src/lib')],
+        options: {
+          formatter: require('eslint-friendly-formatter')
+        }
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -41,13 +54,13 @@ export default {
   resolve: {
     extensions: ['.js', '.vue', '.less'],
     alias: {
-      '$lib': path.resolve(__dirname, '../src/lib'),
+      '$lib': resolve('../src/lib'),
     }
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Vuex Test',
-      template: path.resolve(__dirname, 'index.html'),
+      template: resolve('index.html'),
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',

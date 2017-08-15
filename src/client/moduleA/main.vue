@@ -16,5 +16,5 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   computed: mapGetters('moduleA', ['doubleCount']),
   methods: mapActions('moduleA', ['increase', 'decrease']),
-}
+};
 </script>

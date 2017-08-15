@@ -1,9 +1,7 @@
-const EmptyFunction = function () { };
-
-module.exports = function deferred() {
+module.exports = function() {
   var promise = {
-    resolve: EmptyFunction,
-    reject: EmptyFunction,
+    resolve: null,
+    reject: null,
     promise: null,
   };
 
@@ -15,4 +13,4 @@ module.exports = function deferred() {
   promise.promise = innerPromise;
 
   return promise;
-}
+};

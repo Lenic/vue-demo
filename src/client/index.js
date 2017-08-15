@@ -12,7 +12,7 @@ Vue.use(Router);
 Vue.config.productionTip = false;
 
 const store = new Vuex.Store({
-  modules: { moduleA, moduleB, },
+  modules: { moduleA, moduleB },
 });
 
 const defaultRoute = {
@@ -27,6 +27,6 @@ const router = new Router({
 new Vue({
   store,
   router,
-  el: "#container",
+  el: '#container',
   render: h => h(App),
 });

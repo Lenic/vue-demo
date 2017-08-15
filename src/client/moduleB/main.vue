@@ -35,5 +35,5 @@ export default {
     ...mapGetters('moduleB', ['count']),
   },
   methods: mapActions('moduleB', ['fetch', 'clear']),
-}
+};
 </script>

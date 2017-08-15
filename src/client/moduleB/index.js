@@ -1,5 +1,3 @@
-import ajax from './config';
-
 export const route = {
   path: '/module-b',
   component: resolve => require.ensure([], require => resolve(require('./main'))),
