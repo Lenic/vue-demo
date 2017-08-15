@@ -6,13 +6,21 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
 export default {
   entry: {
-    vendor: ['underscore', 'es6-promise/auto', 'axios', 'vue', 'vuex', 'vue-router'],
+    vendor: [
+      'underscore',
+      'es6-promise/auto',
+      'axios',
+      'vue',
+      'vuex',
+      'vue-router',
+      resolve('../src/res/css'),
+    ],
     app: resolve('../src/client'),
   },
   output: {
@@ -41,7 +49,15 @@ export default {
         use: 'vue-loader',
       },
       {
-        test: /\.less$/,
+        test: /\.attached\.less$/,
+        use: [
+          { loader: 'style-loader/useable' },
+          { loader: 'css-loader' },
+          { loader: 'less-loader' },
+        ],
+      },
+      {
+        test: /\.global\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -53,7 +69,7 @@ export default {
     ],
   },
   resolve: {
-    extensions: ['.js', '.vue', '.less'],
+    extensions: ['.js', '.vue', '.attached.less', '.global.less', '.less'],
     alias: {
       '$lib': resolve('../src/lib'),
     }

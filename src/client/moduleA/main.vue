@@ -13,8 +13,16 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 
+import style from './css';
+
 export default {
   computed: mapGetters('moduleA', ['doubleCount']),
   methods: mapActions('moduleA', ['increase', 'decrease']),
+  mounted() {
+    style.use();
+  },
+  beforeDestroy() {
+    style.unuse();
+  },
 };
 </script>
