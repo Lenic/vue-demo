@@ -13,6 +13,7 @@ require('./logic/users')(router);
 
 app.use('/api', router)
   .use(webpackMiddleware(webpack(webpackConfig), {
+    quiet: true,
     stats: {
       colors: true,
       modules: false,

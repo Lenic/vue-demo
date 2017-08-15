@@ -4,6 +4,7 @@ import _ from 'underscore';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 
 function resolve (dir) {
   return path.join(__dirname, dir);
@@ -67,5 +68,6 @@ export default {
       minChunks: Infinity,
     }),
     new ExtractTextPlugin('[name].css'),
+    new FriendlyErrorsPlugin(),
   ],
 }
