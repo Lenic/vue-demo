@@ -6,6 +6,7 @@ import App from './app';
 
 import routeA from './moduleA';
 import routeB from './moduleB';
+import routeC from './moduleC';
 
 Vue.use(Vuex);
 Vue.use(Router);
@@ -17,7 +18,7 @@ const defaultRoute = {
 };
 
 const router = new Router({
-  routes: [routeA, routeB, defaultRoute],
+  routes: [routeA, routeB, routeC, defaultRoute],
 });
 
 new Vue({
