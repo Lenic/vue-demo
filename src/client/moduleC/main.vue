@@ -11,6 +11,7 @@
       </div>
       <child1 :now="now"></child1>
       <child2 :inputValue="inputValue"></child2>
+      <router-link to="/module-a">To A</router-link>
     </div>
   </div>
 </template>

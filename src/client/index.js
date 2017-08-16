@@ -18,6 +18,7 @@ const defaultRoute = {
 };
 
 const router = new Router({
+  mode: 'history',
   routes: [routeA, routeB, routeC, defaultRoute],
 });
 

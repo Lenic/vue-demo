@@ -7,6 +7,7 @@
     <button @click="decrease()">-</button>
     <div>
       <router-link to="/module-b">To B</router-link>
+      <router-link to="/module-c">To C</router-link>
     </div>
   </div>
 </template>
