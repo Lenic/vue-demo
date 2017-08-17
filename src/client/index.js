@@ -8,6 +8,9 @@ import routeA from './moduleA';
 import routeB from './moduleB';
 import routeC from './moduleC';
 
+// fixed style-loader exception: can't load all style-loader modules.
+import './css';
+
 Vue.use(Vuex);
 Vue.use(Router);
 Vue.config.productionTip = false;

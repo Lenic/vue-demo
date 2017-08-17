@@ -51,6 +51,7 @@ export default {
       },
       {
         test: /\.attached\.less$/,
+        exclude: /\.global\.less$/,
         use: [
           { loader: 'style-loader/useable' },
           { loader: 'css-loader' },
@@ -59,6 +60,7 @@ export default {
       },
       {
         test: /\.global\.less$/,
+        exclude: /\.attached\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -66,6 +68,15 @@ export default {
             { loader: 'less-loader' },
           ],
         }),
+      },
+      {
+        test: /\.less$/,
+        exclude: [/\.global\.less$/, /\.attached\.less$/],
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+          { loader: 'less-loader' },
+        ],
       }
     ],
   },

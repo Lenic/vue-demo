@@ -1,4 +1,4 @@
 export default {
   path: '/module-a',
-  component: resolve => require.ensure([], () => resolve(require('./main'))),
+  component: resolve => import('./main').then(resolve),
 };
