@@ -35,7 +35,11 @@ const moduleName = 'moduleB';
 export default {
   mixins: [linkStore(moduleName, store)],
   data: () => ({
-    dataApi: ajax({ url: '/users' }),
+    dataApi: ajax({
+      url: '/users',
+      id: Date.now(),
+      name: '张三',
+    }),
   }),
   computed: {
     ...mapState(moduleName, ['people']),

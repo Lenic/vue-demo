@@ -1,6 +1,6 @@
 
 module.exports = function (router) {
-  router.get('/users', (req, res) => {
+  router.all('/users', (req, res) => {
     setTimeout(function () {
       res.json([
         {

@@ -9,11 +9,7 @@ const ajax = axios.create();
 
 export class Descriptor {
   constructor(desc) {
-    this._url = _.isFunction(desc.url) ? desc.url : function () { return desc.url; };
-    this._paramsValidator = _.chain(desc.params)
-      .omit(v => !_.isFunction(v.validate))
-      .mapObject(v => v.validate)
-      .value();
+    this._url = _.isFunction(desc.url) ? desc.url : () => desc.url;
     this._defaultParams = _.mapObject(desc.params, v => v.defaultValue);
     this._headers = desc.headers || {};
     this._optionParams = desc.optionParams;
@@ -33,18 +29,18 @@ export class Descriptor {
 
   makeRequest(method, params) {
     const data = _.omit.apply(_, [params].concat(this._optionParams))
+      , useBody = method === 'POST' || method === 'PUT' || method === 'PATCH'
       , headers = _.extend({
         'Content-Type': this._contentType,
       }, this._headers);
 
-    return {
-      params: data,
+    return _.extend({
       method,
       headers,
       cancelToken: null,
       url: this._url(params),
       responseType: this._responseType,
-    };
+    }, useBody ? { data } : { params: data });
   }
 }
 
