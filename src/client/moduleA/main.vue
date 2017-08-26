@@ -9,6 +9,7 @@
       <router-link to="/module-b">To B</router-link>
       <router-link to="/module-c">To C</router-link>
     </div>
+    <div>The Module A is beautify.</div>
   </div>
 </template>
 <script>

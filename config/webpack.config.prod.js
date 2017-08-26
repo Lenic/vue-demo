@@ -20,7 +20,7 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Vuex Test',
+      title: 'Vuex Test On Dev Branch',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -39,6 +39,6 @@ export default {
       name: 'vendor',
       minChunks: 3,
     }),
-    new ExtractTextPlugin('css/[name]-[contenthash:8].css'),
+    new ExtractTextPlugin('[name]-[contenthash:8].css'),
   ],
 }
