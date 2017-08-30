@@ -15,7 +15,7 @@ const argv = require('minimist')(process.argv.slice(2))
   , filenameArray = [name, version].concat([branch, commitid]).concat(suffixes)
   , filename = `${_.filter(filenameArray, v => v).join('-')}.zip`
   , clearFn = cb => rimraf('dist', cb)
-  , site = argv.site || 'nexus.me';
+  , site = argv.site || 'nexus:8081';
 
 const cmd = `node \
   -r babel-register \
