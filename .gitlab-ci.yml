@@ -25,7 +25,7 @@ pack_upload:
   stage: pack_upload
   script:
     - git log --decorate -1
-    - git symbolic-ref --short HEAD
+    - git symbolic-ref --short `git rev-parse HEAD`
     - npm run upload -- --commitid `git rev-parse HEAD` --branch `git rev-parse --abbrev-ref HEAD`
   only:
     - dev
