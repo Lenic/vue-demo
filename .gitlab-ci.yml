@@ -2,7 +2,7 @@ image: node:latest
 
 stages:
   - install_deps
-  - pack_upload
+  - pack_local
 
 cache:
   key: ${CI_BUILD_REF_NAME}
@@ -21,12 +21,15 @@ install_deps:
     - node
     - fed
 
-pack_upload:
-  stage: pack_upload
+pack_local:
+  stage: pack_local
   script:
-    - npm run upload -- --commitid `git rev-parse HEAD` --branch `git name-rev --name-only HEAD`
+    - npm run upload local -- --commitid `git rev-parse HEAD` --branch `git name-rev --name-only HEAD`
   only:
     - dev
   tags:
     - node
     - fed
+  artifacts:
+    paths:
+      - dist/test-vuex.zip
