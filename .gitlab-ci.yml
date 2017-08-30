@@ -4,4 +4,4 @@ stages:
 build-job:
   stage: build
   script:
-    - echo 'This is CI output.'
+    - npm install
