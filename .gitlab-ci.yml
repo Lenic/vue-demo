@@ -24,9 +24,7 @@ install_deps:
 pack_upload:
   stage: pack_upload
   script:
-    - git log --decorate -1
-    - `{`{git name-rev --name-only HEAD}`:0:15}`
-    #- npm run upload -- --commitid `git rev-parse HEAD` --branch `git rev-parse --abbrev-ref HEAD`
+    - npm run upload -- --commitid `git rev-parse HEAD` --branch `git name-rev --name-only HEAD`
   only:
     - dev
   tags:
