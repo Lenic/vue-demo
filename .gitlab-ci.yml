@@ -5,3 +5,4 @@ build-job:
   stage: build
   script:
     - npm install --registry=http://registry.npm.taobao.org
+    - npm run upload
