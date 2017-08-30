@@ -4,4 +4,4 @@ stages:
 build-job:
   stage: build
   script:
-    - npm install
+    - npm install --registry=http://registry.npm.taobao.org
