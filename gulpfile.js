@@ -11,7 +11,8 @@ const argv = require('minimist')(process.argv.slice(2))
   , suffix = argv.suffix || ''
   , suffixes = _.isArray(suffix) ? suffix : [suffix]
   , commitid = (argv.commitid || '').substr(0, 8)
-  , branch = (argv.branch || '').replace(/\//g, '-')
+  , branchSegments = (argv.branch || '').replace(/\//g, '-').split('-')
+  , branch = _.difference(branchSegments, ['remotes', 'origin']).join('-')
   , filenameArray = [name, version].concat([branch, commitid]).concat(suffixes)
   , filename = `${_.filter(filenameArray, v => v).join('-')}.zip`
   , clearFn = cb => rimraf('dist', cb)
