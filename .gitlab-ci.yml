@@ -1,8 +1,32 @@
-stages:
-  - build
+image: node:latest
 
-build-job:
-  stage: build
+stages:
+  - install_deps
+  - pack_upload
+
+cache:
+  key: ${CI_BUILD_REF_NAME}
+  paths:
+    - node_modules/
+    - dist/
+
+install_deps:
+  stage: install_deps
   script:
     - npm install --registry=http://registry.npm.taobao.org
-    - npm run upload
+  only:
+    - dev
+    - master
+  tags:
+    - node
+    - fed
+
+pack_upload:
+  stage: pack_upload
+  script:
+    - npm run upload -- --commitid `git rev-parse HEAD` --branch `git rev-parse --abbrev-ref HEAD`
+  only:
+    - dev
+  tags:
+    - node
+    - fed
