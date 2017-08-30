@@ -28,10 +28,10 @@ gulp.task('clear', clearFn);
 
 gulp.task('pack', ['clear'], shell.task(cmd, { cwd: __dirname }));
 
-gulp.task('local', ['clear'], () =>
+gulp.task('local', ['pack'], () =>
   gulp.src('dist/**/*')
-    .pipe(zip(filename))
-    .pipe(gulp.dest(`dist/${name}.zip`))
+    .pipe(zip(`${name}.zip`))
+    .pipe(gulp.dest(`dist/`))
 )
 
 gulp.task('upload', ['pack'], cb => {
