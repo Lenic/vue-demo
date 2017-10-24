@@ -1,9 +1,5 @@
-import fs from 'fs';
 import path from 'path';
-import _ from 'underscore';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
 
 function resolve(dir) {
@@ -13,20 +9,21 @@ function resolve(dir) {
 export default {
   entry: {
     vendor: [
-      'underscore',
-      'es6-promise/auto',
-      'axios',
       'vue',
       'vuex',
+      'axios',
+      'moment',
       'vue-router',
-      resolve('../src/lib/utils'),
+      'underscore',
+      'highcharts',
+      'element-ui',
+      'regenerator-runtime',
       resolve('../src/res/css'),
+      resolve('../src/lib/utils'),
+      resolve('../src/lib/mixins'),
+      resolve('../src/lib/components'),
     ],
     app: resolve('../src/client'),
-  },
-  output: {
-    filename: '[name].js',
-    path: resolve('../dist'),
   },
   module: {
     rules: [
@@ -34,15 +31,22 @@ export default {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [resolve('../src/client'), resolve('../src/lib')],
+        include: resolve('../src'),
         options: {
-          formatter: require('eslint-friendly-formatter')
+          formatter: require('eslint-friendly-formatter'),
         }
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader',
+      },
+      {
+        test: /\.css$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
+        ],
       },
       {
         test: /\.vue$/,
@@ -59,17 +63,6 @@ export default {
         ],
       },
       {
-        test: /\.global\.less$/,
-        exclude: /\.attached\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            { loader: 'css-loader' },
-            { loader: 'less-loader' },
-          ],
-        }),
-      },
-      {
         test: /\.less$/,
         exclude: [/\.global\.less$/, /\.attached\.less$/],
         use: [
@@ -77,25 +70,20 @@ export default {
           { loader: 'css-loader' },
           { loader: 'less-loader' },
         ],
-      }
+      },
     ],
   },
   resolve: {
     extensions: ['.js', '.vue', '.attached.less', '.global.less', '.less'],
     alias: {
       '$lib': resolve('../src/lib'),
-    }
+      '$res': resolve('../src/res'),
+      '~': resolve('../src/client'),
+      'vue$': 'vue/dist/vue.runtime.esm.js',
+    },
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      title: 'Vuex Test',
-      template: resolve('index.html'),
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor', 'manifest'],
-      minChunks: Infinity,
-    }),
-    new ExtractTextPlugin('[name].css'),
     new FriendlyErrorsPlugin(),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
 }
