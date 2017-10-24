@@ -1,0 +1,120 @@
+.main-page {
+  min-width: 1130px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  .header {
+    background: #339ee2;
+    height: 102px;
+    .logo {
+      width: 20%;
+      float: left;
+      cursor: pointer;
+      margin: 30px 0 0 30px;
+    }
+    .nav {
+      width: 610px;
+      float: left;
+      margin: 0;
+      padding: 0;
+      height: 60px;
+      margin: 42px 0 0 50px;
+      li {
+        float: left;
+        width: 139px;
+        line-height: 60px;
+        text-indent: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background: url(../../res/images/crmnav_04.gif) no-repeat;
+        a {
+          color: #fff;
+        }
+        .switch-btn {
+          display: block;
+        }
+      }
+      li:first-child {
+        background: #12486a url(../../res/images/crmnav_033.png) no-repeat;
+        text-align: center;
+        width: 177px;
+      }
+      li:last-child {
+        background: url(../../res/images/crmnavlast_03.gif) no-repeat;
+      }
+      .first-activity {
+        background: url(../../res/images/crmnav_03.gif) no-repeat !important;
+        width: 177px;
+        height: 60px;
+        text-align: center;
+        text-indent: 0;
+        margin: 0;
+        a {
+          color: #229ed8;
+        }
+      }
+      .common-activity {
+        background: #12486a url(../../res/images/crmnav_03.png) no-repeat !important;
+        width: 177px;
+        height: 60px;
+        text-align: center;
+        text-indent: 0;
+        margin-left: -30px;
+        a {
+          color: #229ed8;
+        }
+      }
+      .last-activity {
+        background: url(../../res/images/crmnav_last_selected.gif) no-repeat !important;
+        width: 177px;
+        height: 60px;
+        text-align: center;
+        text-indent: 0;
+        margin-left: -30px;
+        a {
+          color: #229ed8;
+        }
+      }
+    }
+    .user_box {
+      float: right;
+      color: #fff;
+      margin-top: 80px;
+      margin-right: 20px;
+      .exit {
+        margin-left: 20px;
+        cursor: pointer;
+        color: #fff;
+      }
+    }
+  }
+  .alert_box {
+    background: #fff;
+    width: 30%;
+    position: fixed;
+    top: 40%;
+    left: 35%;
+    z-index: 1000;
+    box-shadow: 1px 1px 10px #000;
+    img {
+      margin: 0 10%;
+      width: 80%;
+    }
+    .alert_text {
+      text-align: center;
+      line-height: 25px;
+    }
+    .cancel {
+      width: 150px;
+      color: #fff;
+      background: #339ee2;
+      display: block;
+      text-align: center;
+      padding: 10px 0;
+      margin: 20px auto;
+      cursor: pointer;
+    }
+  }
+}

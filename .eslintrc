@@ -15,8 +15,7 @@
     "html",
     "promise"
   ],
-  "globals": {
-  },
+  "globals": {},
   "parser": "babel-eslint",
   "rules": {
     "array-bracket-spacing": [
@@ -63,7 +62,7 @@
       "never"
     ],
     "eqeqeq": [
-      "warn",
+      "error",
       "always"
     ],
     "func-call-spacing": [
@@ -85,6 +84,7 @@
       "error",
       "unix"
     ],
+    "no-debugger": "warn",
     "no-console": "off",
     "no-alert": "error",
     "no-caller": "error",
@@ -113,7 +113,12 @@
     "no-with": "error",
     "no-use-before-define": "error",
     "no-duplicate-imports": "error",
-    "no-plusplus": "error",
+    "no-plusplus": [
+      "error",
+      {
+        "allowForLoopAfterthoughts": true
+      }
+    ],
     "no-tabs": "error",
     "prefer-const": [
       "error",
