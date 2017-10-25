@@ -6,12 +6,12 @@ import { defaultMutations } from '$lib/utils/default-mutations';
 
 export default {
   namespaced: true,
-  state: {
+  state: () => ({
     dateValue: moment().startOf('day').subtract(1, 'days').format(AJAX_DATE_FORMAT),
     dataSource: {
       loading: true,
     },
-  },
+  }),
   mutations: defaultMutations,
   getters: mapLazyObject('dataSource'),
   actions: {
