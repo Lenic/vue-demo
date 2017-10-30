@@ -9,26 +9,23 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../../config/webpack.config.dev';
 
 const app = new Express()
-  , router = new Router();
+  , defaultRouter = new Router();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// login
+const loginRouter = new Router();
+require('./logic/login')(loginRouter);
 
 // add mock logic
-require('./logic/users')(router);
-require('./logic/charge')(router);
-require('./logic/monitor')(router);
-require('./logic/station')(router);
+require('./logic/users')(defaultRouter);
+require('./logic/charge')(defaultRouter);
+require('./logic/monitor')(defaultRouter);
+require('./logic/station')(defaultRouter);
 
 app.use((req, res, next) => {
   console.log('Request URL:', req.url);
 
   next();
 });
-
-// login
-const loginRouter = new Router();
-require('./logic/login')(loginRouter);
 
 app.use(history());
 
@@ -41,8 +38,10 @@ if (process.env.PROXY) {
     changeOrigin: true,
   }));
 } else {
-  app.use(loginRouter)
-    .use('/api', router);
+  app.use(bodyParser.urlencoded({ extended: false }))
+    .use(bodyParser.json())
+    .use(loginRouter)
+    .use('/api', defaultRouter);
 }
 
 app.use(webpackMiddleware(webpack(webpackConfig), {
