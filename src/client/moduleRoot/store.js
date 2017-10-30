@@ -5,12 +5,12 @@ import { defaultMutations } from '$lib/utils/default-mutations';
 
 export default {
   namespaced: true,
-  state: {
+  getState: () => ({
     currentHospital: '',
     hospitals: {
       loading: true,
     },
-  },
+  }),
   getters: mapLazyObject('hospitals'),
   mutations: defaultMutations,
   actions: {
