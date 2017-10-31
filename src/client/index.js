@@ -4,7 +4,6 @@ import Router from 'vue-router';
 import Highcharts from 'highcharts';
 require('highcharts/modules/exporting')(Highcharts);
 
-import App from './app';
 import login from './login';
 import './common/exception';
 import Auth from './common/auth';
@@ -19,7 +18,6 @@ Vue.use(Router);
 Vue.config.productionTip = false;
 
 const router = new Router({
-  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -35,7 +33,7 @@ Auth.validate(router);
 new Vue({
   router,
   el: '#container',
-  render: h => h(App),
+  render: h => h('router-view'),
   store: new Vuex.Store({
     state: {
       bus: new Vue(),
