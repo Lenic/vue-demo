@@ -3,7 +3,8 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import HtmlWebpackInlineSourcePlugin from "html-webpack-inline-source-plugin";
 
 import config from './webpack.config';
 
@@ -62,14 +63,16 @@ export default merge(config, {
     new HtmlWebpackPlugin({
       title: 'CRM 运营后台',
       template: resolve('index.html'),
+      inlineSource: 'manifest\.js$'
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor', 'manifest'],
-      minChunks: 3,
+      minChunks: Infinity,
     }),
     new ExtractTextPlugin('css/[name].css'),
-    // new BundleAnalyzerPlugin({
-    //   openAnalyzer: false,
-    // }),
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false,
+    }),
+    new HtmlWebpackInlineSourcePlugin(),
   ],
 })
