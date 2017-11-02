@@ -40,20 +40,21 @@ export default merge(config, {
         }),
       },
       {
-        test: /\.(gif|jpg|jpeg|png)$/,
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: 'url-loader',
           options: {
-            limit: 1000,
+            limit: 10000,
             name: 'images/[name]-[hash:8].[ext]',
           },
         },
       },
       {
-        test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         use: {
-          loader: 'file-loader',
+          loader: 'url-loader',
           options: {
+            limit: 10000,
             name: 'fonts/[name]-[hash:8].[ext]',
           },
         },
