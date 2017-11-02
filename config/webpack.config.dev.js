@@ -21,13 +21,13 @@ export default merge(config, {
   module: {
     rules: [
       {
-        test: /\.global\.less$/,
-        exclude: /\.attached\.less$/,
+        test: /\.global\.scss$/,
+        exclude: /\.attached\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
             { loader: 'css-loader' },
-            { loader: 'less-loader' },
+            { loader: 'sass-loader' },
           ],
           publicPath: '/',
         }),

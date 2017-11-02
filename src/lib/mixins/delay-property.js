@@ -23,10 +23,15 @@ export default function (propertyName, wait = 100) {
 
         if (val !== oldVal) {
           this[delayName] = true;
-          this[delayTokenName] = setTimeout(() => {
+
+          if (this[currentName] === this[propertyName]) {
             this[delayName] = false;
-            this[currentName] = val;
-          }, wait);
+          } else {
+            this[delayTokenName] = setTimeout(() => {
+              this[delayName] = false;
+              this[currentName] = val;
+            }, wait);
+          }
         }
       },
     },

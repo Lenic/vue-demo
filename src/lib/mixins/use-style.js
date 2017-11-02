@@ -1,6 +1,6 @@
 export default function (style) {
   return {
-    mounted() {
+    created() {
       style.use();
     },
     beforeDestroy() {

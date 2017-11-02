@@ -18,7 +18,6 @@ export default {
       'underscore',
       'highcharts',
       'element-ui',
-      resolve('../src/res/css'),
       resolve('../src/lib/utils'),
       resolve('../src/lib/mixins'),
       resolve('../src/lib/components'),
@@ -54,27 +53,27 @@ export default {
         use: 'vue-loader',
       },
       {
-        test: /\.attached\.less$/,
-        exclude: /\.global\.less$/,
+        test: /\.attached\.scss$/,
+        exclude: /\.global\.scss$/,
         use: [
           { loader: 'style-loader/useable' },
           { loader: 'css-loader' },
-          { loader: 'less-loader' },
+          { loader: 'sass-loader' },
         ],
       },
       {
-        test: /\.less$/,
-        exclude: [/\.global\.less$/, /\.attached\.less$/],
+        test: /\.scss$/,
+        exclude: [/\.global\.scss$/, /\.attached\.scss$/],
         use: [
           { loader: 'style-loader' },
           { loader: 'css-loader' },
-          { loader: 'less-loader' },
+          { loader: 'sass-loader' },
         ],
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.vue', '.attached.less', '.global.less', '.less'],
+    extensions: ['.js', '.vue', '.attached.scss', '.global.scss', '.scss'],
     alias: {
       '~': resolve('../src/client'),
       '$lib': resolve('../src/lib'),

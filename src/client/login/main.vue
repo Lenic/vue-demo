@@ -1,142 +1,129 @@
 <template>
-  <div class="login-main">
-    <div class="login-page">
-      <img class="login-bg"
-           :src="require('$res/images/login_bg.gif')" />
-      <el-form :model="form"
-               :rules="rules"
-               ref="defaultForm">
-        <el-form-item prop="mobile">
-          <el-input v-model="form.mobile"
-                    auto-complete="on"
-                    name="mobile"
-                    placeholder="管理员账号"></el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input v-model="form.password"
-                    type="password"
-                    name="password"
-                    placeholder="密码"></el-input>
-        </el-form-item>
+  <div class="login-container">
+    <el-form ref="loginForm"
+             autoComplete="on"
+             :model="loginForm"
+             :rules="loginRules"
+             label-position="left"
+             class="card-box login-form">
+      <h3 class="title">系统登录</h3>
 
-        <!-- <el-input class="verification-code"
-                                                placeholder="验证码"></el-input>
-                                      <img alt="输入验证码"
-                                           title="看不清，请点击图片刷新"
-                                           src="http://crm.lianlianbox.com/authImg"
-                                           class="verification-picture"> -->
-        <p class="invalid-tip"
-           v-show="invalidTip">{{invalidTip}}</p>
-        <div class="btn">
-          <el-button type="primary"
-                     @click="judgeCondition">立即登录</el-button>
-        </div>
-      </el-form>
-      <div class="footer">
-        2016 浙江禾连网络科技有限公司 浙ICP备15005165号-1
-      </div>
-    </div>
+      <el-form-item prop="username">
+        <span class="svg-container svg-container_login iconfont">&#xe926;</span>
+        <el-input type="text"
+                  name="username"
+                  autoComplete="on"
+                  placeholder="用户名"
+                  v-model="loginForm.username" />
+      </el-form-item>
+
+      <el-form-item prop="password">
+        <span class="svg-container svg-container_login iconfont">&#xe60d;</span>
+        <el-input name="password"
+                  :type="pwdType"
+                  autoComplete="on"
+                  placeholder="密码"
+                  v-model="loginForm.password"
+                  @keyup.enter.native="handleLogin" />
+        <span @click='showPwd'
+              v-if="pwdType === ''"
+              class='show-pwd iconfont'>
+          &#xe600;
+        </span>
+        <span v-else
+              @click='showPwd'
+              class='show-pwd iconfont'>
+          &#xe602;
+        </span>
+      </el-form-item>
+
+      <el-button type="primary"
+                 class="btn-submit"
+                 :loading="currentIsLoading"
+                 native-type="submit"
+                 @click.native.prevent="handleLogin">
+        登录
+      </el-button>
+    </el-form>
   </div>
 </template>
 
-<script type="text/javascript">
-import _ from 'underscore';
-
-import Auth from '~/common/auth';
-import ajax from '$lib/utils/api-factory';
+<script>
 import useStyle from '$lib/mixins/use-style';
+import delay from '$lib/mixins/delay-property';
 
 import style from './css';
 
-const api = new ajax({ url: '/login' });
-
-var title = null;
-
 export default {
-  mixins: [useStyle(style)],
+  mixins: [useStyle(style), delay('isLoading')],
+  name: 'login',
   data() {
     return {
-      invalidTip: false,
-      form: {
-        mobile: '',
-        password: '',
+      loginForm: {
+        username: 'admin',
+        password: '1111111',
       },
-      dataApi: api(
-        {
-          mobile: () => this.form.mobile,
-          password: () => this.form.password,
-        },
-        null,
-        {
-          callback: res => res.data.code
-            ? Promise.reject(new Error(res.data.errorMsg || '--'))
-            : res,
-        },
-      ),
-      rules: {
-        mobile: [
-          {
-            required: true,
-            message: '请输入管理员账号',
-            trigger: 'blur',
+      loginRules: {
+        username: [{
+          required: true,
+          trigger: 'blur',
+          validator: (rule, value, callback) => {
+            if (value.length <= 1) {
+              callback(new Error('请输入正确的用户名'));
+            } else {
+              callback();
+            }
           },
-        ],
-        password: [
-          {
-            required: true,
-            message: '请输入密码',
-            trigger: 'blur',
+        }],
+        password: [{
+          required: true,
+          trigger: 'blur',
+          validator: (rule, value, callback) => {
+            if (value.length < 6) {
+              callback(new Error('密码不能少于 6 位'));
+            } else {
+              callback();
+            }
           },
-          {
-            min: 6,
-            message: '请输入完整密码',
-            trigger: 'change',
-          },
-        ],
+        }],
       },
+      pwdType: 'password',
+      isLoading: false,
     };
   },
   methods: {
-    judgeCondition() {
-      const { defaultForm } = this.$refs;
-      defaultForm.validate(valid => {
-        if (!valid) {
-          return false;
-        }
-
-        this.login();
-      });
-    },
-    async login() {
-      const { query } = this.$route
-        , path = _.has(query, 'redirect') ? query.redirect : '/';
-
-      try {
-        const { result } = await this.dataApi.post()
-          , data = result.split('|');
-
-        this.invalidTip = '';
-        Auth.setAuth(data[0], data[1], this.form.mobile);
-
-        this.$router.push({ path });
-      } catch (e) {
-        this.invalidTip = e.message;
+    showPwd() {
+      if (this.pwdType === 'password') {
+        this.pwdType = '';
+      } else {
+        this.pwdType = 'password';
       }
     },
-  },
-  beforeCreate() {
-    title = document.title;
-    document.title = '登录';
-  },
-  mounted() {
-    if (this.$route.query.loginstate === 'login_invalid') {
-      this.invalidTip = true;
-    }
+    handleLogin() {
+      if (this.delayingIsLoading) {
+        return;
+      }
 
-    document.getElementsByClassName('login-main')[0].style.height = `${window.innerHeight}px`;
-  },
-  destroyed() {
-    document.title = title;
+      this.$refs.loginForm.validate(async valid => {
+        if (valid) {
+          this.isLoading = true;
+
+          try {
+            await this.$store.dispatch('LoginByUsername', this.loginForm);
+
+            // 下买两行位置不能互换，参考 delay-property.js 实现
+            this.currentIsLoading = false;
+            this.isLoading = false;
+            this.$router.push({ path: '/' });
+          } catch (e) {
+            this.currentIsLoading = false;
+            this.isLoading = false;
+          }
+        }
+
+        return false;
+      });
+    },
   },
 };
 </script>
