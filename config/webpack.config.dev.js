@@ -4,7 +4,6 @@ import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 
 import config from './webpack.config';
 
@@ -65,17 +64,7 @@ export default merge(config, {
       inlineSource: /manifest\.js$/,
       template: resolve('index.html'),
     }),
-    new HtmlWebpackInlineSourcePlugin(),
     new ExtractTextPlugin('css/[name].css'),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor', 'manifest'],
-      minChunks: Infinity,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      children: true,
-      minChunks: 3,
-      async: true,
-    }),
     // new BundleAnalyzerPlugin({
     //   openAnalyzer: false,
     // }),

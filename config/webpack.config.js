@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import FriendlyErrorsPlugin from 'friendly-errors-webpack-plugin';
+import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 
 function resolve(dir) {
   return path.join(__dirname, dir);
@@ -83,6 +84,16 @@ export default {
   },
   plugins: [
     new FriendlyErrorsPlugin(),
+    new HtmlWebpackInlineSourcePlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendor', 'manifest'],
+      minChunks: Infinity,
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      children: true,
+      minChunks: 3,
+      async: true,
+    }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
 };

@@ -6,7 +6,6 @@ import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
-import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 
 import config from './webpack.config';
 
@@ -100,22 +99,6 @@ export default merge(config, {
       test: /\.(js|html|css|svg)$/,
       threshold: 10240,
       minRatio: 0.8,
-    }),
-    new HtmlWebpackInlineSourcePlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        drop_console: false,
-      },
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['vendor', 'manifest'],
-      minChunks: 3,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      children: true,
-      minChunks: 3,
-      async: true,
     }),
     new ExtractTextPlugin('css/[name]-[contenthash:8].css'),
     // new BundleAnalyzerPlugin({
