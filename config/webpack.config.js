@@ -17,7 +17,6 @@ export default {
       'underscore',
       'highcharts',
       'element-ui',
-      'regenerator-runtime',
       resolve('../src/res/css'),
       resolve('../src/lib/utils'),
       resolve('../src/lib/mixins'),
@@ -34,7 +33,7 @@ export default {
         include: resolve('../src'),
         options: {
           formatter: require('eslint-friendly-formatter'),
-        }
+        },
       },
       {
         test: /\.js$/,
@@ -76,9 +75,9 @@ export default {
   resolve: {
     extensions: ['.js', '.vue', '.attached.less', '.global.less', '.less'],
     alias: {
+      '~': resolve('../src/client'),
       '$lib': resolve('../src/lib'),
       '$res': resolve('../src/res'),
-      '~': resolve('../src/client'),
       'vue$': 'vue/dist/vue.runtime.esm.js',
     },
   },
@@ -86,4 +85,4 @@ export default {
     new FriendlyErrorsPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
-}
+};

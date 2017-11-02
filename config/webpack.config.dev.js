@@ -3,8 +3,8 @@ import webpack from 'webpack';
 import merge from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import HtmlWebpackInlineSourcePlugin from "html-webpack-inline-source-plugin";
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import HtmlWebpackInlineSourcePlugin from 'html-webpack-inline-source-plugin';
 
 import config from './webpack.config';
 
@@ -50,29 +50,34 @@ export default merge(config, {
           options: {
             name: 'fonts/[name].[ext]',
           },
-        }
+        },
       },
     ],
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"development"'
-      }
+        NODE_ENV: '"development"',
+      },
     }),
     new HtmlWebpackPlugin({
       title: 'CRM 运营后台',
+      inlineSource: /manifest\.js$/,
       template: resolve('index.html'),
-      inlineSource: 'manifest\.js$'
     }),
+    new HtmlWebpackInlineSourcePlugin(),
+    new ExtractTextPlugin('css/[name].css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['vendor', 'manifest'],
       minChunks: Infinity,
     }),
-    new ExtractTextPlugin('css/[name].css'),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: false,
+    new webpack.optimize.CommonsChunkPlugin({
+      children: true,
+      minChunks: 3,
+      async: true,
     }),
-    new HtmlWebpackInlineSourcePlugin(),
+    // new BundleAnalyzerPlugin({
+    //   openAnalyzer: false,
+    // }),
   ],
-})
+});

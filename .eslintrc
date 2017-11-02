@@ -15,7 +15,9 @@
     "html",
     "promise"
   ],
-  "globals": {},
+  "globals": {
+    "__dirname": true
+  },
   "parser": "babel-eslint",
   "rules": {
     "array-bracket-spacing": [
