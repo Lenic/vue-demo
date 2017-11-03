@@ -9,7 +9,7 @@
       <h3 class="title">系统登录</h3>
 
       <el-form-item prop="username">
-        <span class="svg-container svg-container_login iconfont">&#xe926;</span>
+        <i class="svg-container svg-container_login iconfont">&#xe926;</i>
         <el-input type="text"
                   name="username"
                   autoComplete="on"
@@ -18,23 +18,23 @@
       </el-form-item>
 
       <el-form-item prop="password">
-        <span class="svg-container svg-container_login iconfont">&#xe60d;</span>
+        <i class="svg-container svg-container_login iconfont">&#xe60d;</i>
         <el-input name="password"
                   :type="pwdType"
                   autoComplete="on"
                   placeholder="密码"
                   v-model="loginForm.password"
                   @keyup.enter.native="handleLogin" />
-        <span @click='showPwd'
+        <i @click='showPwd'
               v-if="pwdType === ''"
               class='show-pwd iconfont'>
           &#xe600;
-        </span>
-        <span v-else
+        </i>
+        <i v-else
               @click='showPwd'
               class='show-pwd iconfont'>
           &#xe602;
-        </span>
+        </i>
       </el-form-item>
 
       <el-button type="primary"

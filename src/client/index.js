@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import ElementUI from 'element-ui';
 
 import login from './login';
+import layout from './modules';
 import './common/exception';
 // import Auth from './common/auth';
 
@@ -14,15 +15,7 @@ Vue.use(Router);
 Vue.use(ElementUI);
 Vue.config.productionTip = false;
 
-const router = new Router({
-  routes: [
-    {
-      path: '/',
-      redirect: '/login',
-    },
-    login,
-  ],
-});
+const router = new Router({ routes: [login, layout] });
 
 // Auth.validate(router);
 
