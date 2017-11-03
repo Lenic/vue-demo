@@ -4,11 +4,11 @@
     <el-breadcrumb-item :key="item.path"
                         v-for="(item, index) in levelList">
       <span class="no-redirect"
-            v-if="item.redirect === 'noredirect' || index === levelList.length - 1">
+            v-if="index === levelList.length - 1">
         {{item.name}}
       </span>
       <router-link v-else
-                   :to="item.redirect || item.path">
+                   :to="item.path">
         {{item.name}}
       </router-link>
     </el-breadcrumb-item>
@@ -18,12 +18,12 @@
 <script>
 export default {
   created() {
-    this.getBreadcrumb()
+    this.getBreadcrumb();
   },
   data() {
     return {
-      levelList: null
-    }
+      levelList: null,
+    };
   },
   methods: {
     getBreadcrumb() {

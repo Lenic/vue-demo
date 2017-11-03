@@ -4,11 +4,12 @@
     <hamburger class="hamburger-container"
                @toggleClick="$emit('toggleSidebar')"
                :is-active="isSidebarOpened" />
+    <levelbar />
   </el-menu>
 </template>
 
 <script>
-// import Levelbar from './levelbar';
+import Levelbar from './levelbar';
 import Hamburger from './hamburger';
 
 export default {
@@ -18,10 +19,7 @@ export default {
       required: true,
     },
   },
-  components: {
-    // Levelbar,
-    Hamburger,
-  },
+  components: { Levelbar, Hamburger },
 };
 </script>
 
