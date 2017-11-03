@@ -4,7 +4,7 @@ import Router from 'vue-router';
 import ElementUI from 'element-ui';
 
 import login from './login';
-import layout from './modules';
+import layout from './layout';
 import './common/exception';
 // import Auth from './common/auth';
 

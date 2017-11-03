@@ -1,3 +1,5 @@
+import { defaultMutations } from '$lib/utils/default-mutations';
+
 export default {
   namespaced: true,
   state: {
@@ -12,7 +14,8 @@ export default {
         path: '/dd',
         icon: '&#xe926;',
         name: '奖品列表',
-      }
-    ]
+      },
+    ],
   },
+  mutations: defaultMutations,
 };

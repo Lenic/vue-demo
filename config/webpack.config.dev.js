@@ -60,7 +60,7 @@ export default merge(config, {
       },
     }),
     new HtmlWebpackPlugin({
-      title: 'CRM 运营后台',
+      title: '运营模版系统',
       inlineSource: /manifest\.js$/,
       template: resolve('index.html'),
     }),

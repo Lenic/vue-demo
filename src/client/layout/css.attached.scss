@@ -1,0 +1,111 @@
+@import "../../res/mixin.scss";
+.app-wrapper {
+  @include clearfix;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  >.el-menu {
+    border-radius: 0;
+  }
+  &.hideSidebar {
+    .sidebar-container {
+      width: 36px;
+      overflow: inherit;
+    }
+    .main-container {
+      margin-left: 36px;
+    }
+  }
+  .sidebar-container {
+    transition: width 0.28s ease-out;
+    width: 180px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none
+    }
+    .icon-left {
+      margin-right: 10px;
+    }
+  }
+  .main-container {
+    min-height: 100%;
+    transition: margin-left 0.28s ease-out;
+    margin-left: 180px;
+  }
+}
+
+.navbar {
+  height: 50px;
+  line-height: 50px;
+  border-radius: 0px !important;
+  .hamburger-container {
+    line-height: 58px;
+    height: 50px;
+    float: left;
+    padding: 0 10px;
+  }
+  .errLog-container {
+    display: inline-block;
+    position: absolute;
+    right: 150px;
+  }
+  .screenfull {
+    position: absolute;
+    right: 90px;
+    top: 16px;
+    color: red;
+  }
+  .avatar-container {
+    height: 50px;
+    display: inline-block;
+    position: absolute;
+    right: 35px;
+    .avatar-wrapper {
+      cursor: pointer;
+      margin-top: 5px;
+      position: relative;
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .el-icon-caret-bottom {
+        position: absolute;
+        right: -20px;
+        top: 25px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.hamburger {
+  display: inline-block;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transform: rotate(0deg);
+  transition: 0.38s;
+  transform-origin: 50% 50%;
+}
+
+.hamburger.is-active {
+  transform: rotate(90deg);
+}
+
+.app-levelbar.el-breadcrumb {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 50px;
+  margin-left: 10px;
+  .no-redirect {
+    color: #97a8be;
+    cursor: text;
+  }
+}
