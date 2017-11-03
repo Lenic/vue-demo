@@ -25,16 +25,9 @@
                   placeholder="密码"
                   v-model="loginForm.password"
                   @keyup.enter.native="handleLogin" />
-        <i @click='showPwd'
-              v-if="pwdType === ''"
-              class='show-pwd iconfont'>
-          &#xe600;
-        </i>
-        <i v-else
-              @click='showPwd'
-              class='show-pwd iconfont'>
-          &#xe602;
-        </i>
+        <i @click="showPwd"
+           class="show-pwd iconfont"
+           v-html="pwdType === '' ? '&#xe600;' : '&#xe602;'" />
       </el-form-item>
 
       <el-button type="primary"
