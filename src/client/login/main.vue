@@ -45,6 +45,8 @@
 import useStyle from '$lib/mixins/use-style';
 import delay from '$lib/mixins/delay-property';
 
+import Auth from '../common/auth';
+
 import style from './css';
 
 export default {
@@ -107,7 +109,9 @@ export default {
             // 下买两行位置不能互换，参考 delay-property.js 实现
             this.currentIsLoading = false;
             this.isLoading = false;
-            this.$router.push({ path: '/' });
+
+            Auth.setAuth('1', '2', '3');
+            this.$router.push({ name: '首页', params: { abc: 'test-parameter' } });
           } catch (e) {
             this.currentIsLoading = false;
             this.isLoading = false;

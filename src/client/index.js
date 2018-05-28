@@ -6,7 +6,7 @@ import ElementUI from 'element-ui';
 import login from './login';
 import layout from './layout';
 import './common/exception';
-// import Auth from './common/auth';
+import Auth from './common/auth';
 
 import './common/css';
 
@@ -17,7 +17,7 @@ Vue.config.productionTip = false;
 
 const router = new Router({ routes: [login, layout] });
 
-// Auth.validate(router);
+Auth.validate(router);
 
 new Vue({
   router,

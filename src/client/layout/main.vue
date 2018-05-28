@@ -35,5 +35,8 @@ export default {
     ...mapState(moduleName, ['isSidebarOpened', 'menus']),
   },
   methods: mapDefaultMutations(moduleName),
+  mounted() {
+    console.log(this.$route.params);
+  },
 };
 </script>
