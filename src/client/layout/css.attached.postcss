@@ -1,24 +1,21 @@
-@import "../../res/mixin.scss";
 .app-wrapper {
-  @include clearfix;
   position: relative;
   height: 100%;
   width: 100%;
-  >.el-menu {
+  & > .el-menu {
     border-radius: 0;
   }
   &.hideSidebar {
     .sidebar-container {
-      width: 36px;
+      width: 64px;
       overflow: inherit;
     }
-    .main-container {
-      margin-left: 36px;
+    & .main-container {
+      margin-left: 64px;
     }
   }
-  .sidebar-container {
-    transition: width 0.28s ease-out;
-    width: 180px;
+  & .sidebar-container {
+    width: 200px;
     height: 100%;
     position: fixed;
     top: 0;
@@ -26,17 +23,20 @@
     left: 0;
     z-index: 1001;
     overflow-y: auto;
-    &::-webkit-scrollbar {
-      display: none
+    &.el-menu--collapse {
+      width: 64px;
     }
-    .icon-left {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & .icon-left {
       margin-right: 10px;
     }
   }
-  .main-container {
+  & .main-container {
     min-height: 100%;
     transition: margin-left 0.28s ease-out;
-    margin-left: 180px;
+    margin-left: 200px;
   }
 }
 
@@ -44,38 +44,41 @@
   height: 50px;
   line-height: 50px;
   border-radius: 0px !important;
-  .hamburger-container {
+  & .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
+    &:focus {
+      outline: none;
+    }
   }
-  .errLog-container {
+  & .errLog-container {
     display: inline-block;
     position: absolute;
     right: 150px;
   }
-  .screenfull {
+  & .screenfull {
     position: absolute;
     right: 90px;
     top: 16px;
     color: red;
   }
-  .avatar-container {
+  & .avatar-container {
     height: 50px;
     display: inline-block;
     position: absolute;
     right: 35px;
-    .avatar-wrapper {
+    & .avatar-wrapper {
       cursor: pointer;
       margin-top: 5px;
       position: relative;
-      .user-avatar {
+      & .user-avatar {
         width: 40px;
         height: 40px;
         border-radius: 10px;
       }
-      .el-icon-caret-bottom {
+      & .el-icon-caret-bottom {
         position: absolute;
         right: -20px;
         top: 25px;
@@ -104,8 +107,13 @@
   font-size: 14px;
   line-height: 50px;
   margin-left: 10px;
-  .no-redirect {
+  & .no-redirect {
     color: #97a8be;
     cursor: text;
   }
+}
+
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }

@@ -1,20 +1,40 @@
 <template>
-  <el-menu theme="dark"
-           unique-opened
-           :collapse="true"
-           :default-active="$route.path">
-    <div class='menu-wrapper'>
-      <router-link :to="item.path"
-                   :key="item.path"
-                   v-for="item in menus">
-        <el-menu-item :index="item.path"
-                      class='submenu-title-noDropdown'>
-          <i class="iconfont"
-                v-html="item.icon" />
-          <span>{{item.name}}</span>
-        </el-menu-item>
-      </router-link>
-    </div>
+  <el-menu
+    unique-opened
+    text-color="#fff"
+    :collapse="!isOpened"
+    default-active="1-4-1"
+    background-color="#545C64"
+    active-text-color="#ffd04b"
+    :collapse-transition="true"
+    class="el-menu-vertical-demo"
+  >
+    <el-submenu index="1">
+      <template slot="title">
+        <i class="el-icon-location"></i> <span slot="title">导航一</span>
+      </template>
+      <el-menu-item-group>
+        <span slot="title">分组一</span>
+        <el-menu-item index="1-1">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group title="分组2">
+        <el-menu-item index="1-3">选项3</el-menu-item>
+      </el-menu-item-group>
+      <el-submenu index="1-4">
+        <span slot="title">选项4</span>
+        <el-menu-item index="1-4-1">选项1</el-menu-item>
+      </el-submenu>
+    </el-submenu>
+    <el-menu-item index="2">
+      <i class="el-icon-menu"></i> <span slot="title">导航二</span>
+    </el-menu-item>
+    <el-menu-item index="3" disabled>
+      <i class="el-icon-document"></i> <span slot="title">导航三</span>
+    </el-menu-item>
+    <el-menu-item index="4">
+      <i class="el-icon-setting"></i> <span slot="title">导航四</span>
+    </el-menu-item>
   </el-menu>
 </template>
 
@@ -23,12 +43,12 @@ export default {
   props: {
     isOpened: {
       type: Boolean,
-      required: true,
+      required: true
     },
     menus: {
       type: Array,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>

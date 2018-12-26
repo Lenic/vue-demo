@@ -7,14 +7,28 @@ import Deferred from './deferred';
  * @param {Integer} millisec 函数 fn 延迟执行的毫秒数
  * @param {Integer} threshold 函数 fn 所允许的最大参数数量
  */
-export default function (fn, millisec, threshold) {
+export default function(fn, millisec, threshold) {
   if (typeof fn !== 'function') {
     throw new TypeError('fn must be function type.');
   }
-  if (!(typeof millisec === 'number' && isFinite(millisec) && Math.floor(millisec) === millisec && millisec > 0)) {
+  if (
+    !(
+      typeof millisec === 'number' &&
+      isFinite(millisec) &&
+      Math.floor(millisec) === millisec &&
+      millisec > 0
+    )
+  ) {
     throw new TypeError('The millisec must be a positive integer.');
   }
-  if (!(typeof threshold === 'number' && isFinite(threshold) && Math.floor(threshold) === threshold && threshold > 0)) {
+  if (
+    !(
+      typeof threshold === 'number' &&
+      isFinite(threshold) &&
+      Math.floor(threshold) === threshold &&
+      threshold > 0
+    )
+  ) {
     throw new TypeError('The threshold must be a positive integer.');
   }
 
@@ -25,7 +39,7 @@ export default function (fn, millisec, threshold) {
   // 待连接的延迟对象数组
   let promises = [];
 
-  return function () {
+  return function() {
     // 在规定的时间内多次调用，取消前一次的等待效果
     if (token !== null) {
       clearTimeout(token);
@@ -45,7 +59,7 @@ export default function (fn, millisec, threshold) {
     promises.push(defer);
 
     // 需要执行的延迟函数封装
-    var callback = function () {
+    var callback = function() {
       // 本次延迟已正确执行，取消延迟函数标识
       token = null;
 
@@ -56,13 +70,13 @@ export default function (fn, millisec, threshold) {
       promises = [];
 
       // 执行目标函数并捕获返回值
-      var delay = Promise.resolve().then(function () {
+      var delay = Promise.resolve().then(function() {
         return fn(tmpParameters);
       });
 
       // 触发请求的数据回调
-      tmpPromises.forEach(function (v) {
-        delay.then(v.resolve, v.reject).then(null, function (e) {
+      tmpPromises.forEach(function(v) {
+        delay.then(v.resolve, v.reject).then(null, function(e) {
           console.error(e);
         });
       });

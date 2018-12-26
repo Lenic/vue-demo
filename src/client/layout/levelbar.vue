@@ -1,16 +1,8 @@
 <template>
-  <el-breadcrumb separator="/"
-                 class="app-levelbar">
-    <el-breadcrumb-item :key="item.path"
-                        v-for="(item, index) in levelList">
-      <span class="no-redirect"
-            v-if="index === levelList.length - 1">
-        {{item.name}}
-      </span>
-      <router-link v-else
-                   :to="item.path">
-        {{item.name}}
-      </router-link>
+  <el-breadcrumb separator="/" class="app-levelbar">
+    <el-breadcrumb-item :key="item.path" v-for="(item, index) in levelList">
+      <span class="no-redirect" v-if="index === levelList.length - 1"> {{ item.name }} </span>
+      <router-link v-else :to="item.path"> {{ item.name }} </router-link>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
@@ -22,7 +14,7 @@ export default {
   },
   data() {
     return {
-      levelList: null,
+      levelList: null
     };
   },
   methods: {
@@ -35,12 +27,12 @@ export default {
       }
 
       this.levelList = matched;
-    },
+    }
   },
   watch: {
     $route() {
       this.getBreadcrumb();
-    },
-  },
+    }
+  }
 };
 </script>

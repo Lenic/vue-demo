@@ -28,7 +28,7 @@ export function mapLazyObject(propertyName, defaultValue = {}) {
       }
 
       return state[propertyName];
-    },
+    }
   };
 }
 
@@ -36,6 +36,6 @@ export function getLazyObjectNames(propertyName) {
   return [
     propertyName,
     `original${getPascalName(propertyName)}`,
-    `isLoading${getPascalName(propertyName)}`,
+    `isLoading${getPascalName(propertyName)}`
   ];
 }

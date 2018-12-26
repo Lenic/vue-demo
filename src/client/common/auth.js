@@ -6,7 +6,7 @@ import { setup } from '$lib/utils/api-factory';
 /* eslint-disable */
 let authInfo = {
   uid: Cookies.get('uid') || null,
-  token: Cookies.get('token') || null,
+  token: Cookies.get('token') || null
 };
 /* eslint-enable */
 
@@ -19,7 +19,7 @@ const obj = {
         if (!authInfo.token) {
           next({
             path: '/login',
-            query: { redirect: to.fullPath },
+            query: { redirect: to.fullPath }
           });
         } else {
           next();
@@ -45,10 +45,11 @@ const obj = {
         axios.defaults.headers.common.token = null;
       });
 
-      authInfo.router && authInfo.router.push({
-        path: '/login',
-        query: { redirect: authInfo.router.currentRoute.fullPath },
-      });
+      authInfo.router &&
+        authInfo.router.push({
+          path: '/login',
+          query: { redirect: authInfo.router.currentRoute.fullPath }
+        });
     } else {
       authInfo.uid = uid;
       authInfo.token = token;
@@ -62,9 +63,9 @@ const obj = {
         axios.defaults.headers.common.token = token;
       });
     }
-  },
+  }
 };
 
-module.exports = obj;
+export default obj;
 
 obj.setAuth(authInfo.uid, authInfo.token, Cookies.get('mobile'));

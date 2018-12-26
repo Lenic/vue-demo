@@ -1,6 +1,5 @@
 <template>
-  <div ref="container">
-  </div>
+  <div ref="container"></div>
 </template>
 
 <script>
@@ -33,57 +32,57 @@ import HighCharts from 'highcharts';
 
 const refreshDefaultConfiguration = opts => ({
   credits: {
-    enabled: false,
+    enabled: false
   },
   chart: {
-    type: opts.type,
+    type: opts.type
   },
   title: {
-    text: null,
+    text: null
   },
   exporting: {
-    enabled: false,
+    enabled: false
   },
   xAxis: {
     categories: opts.xAxis,
-    tickmarkPlacement: 'on',
+    tickmarkPlacement: 'on'
   },
   yAxis: {
     title: {
-      text: opts.name,
+      text: opts.name
     },
     plotLines: [
       {
         value: 0,
         width: 1,
-        color: '#808080',
-      },
-    ],
+        color: '#808080'
+      }
+    ]
   },
   tooltip: {
     shared: true,
     valueSuffix: opts.unit,
-    crosshairs: true,
+    crosshairs: true
   },
   series: [
     {
       name: opts.name,
-      data: opts.yAxis,
-    },
-  ],
+      data: opts.yAxis
+    }
+  ]
 });
 
 export default {
   props: {
     options: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   watch: {
     options() {
       this.updateChart();
-    },
+    }
   },
   mounted() {
     this.updateChart();
@@ -96,7 +95,7 @@ export default {
 
       const config = refreshDefaultConfiguration(this.options);
       HighCharts.chart(this.$refs.container, config);
-    },
-  },
+    }
+  }
 };
 </script>

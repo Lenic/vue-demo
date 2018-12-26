@@ -1,17 +1,15 @@
-@import "../../res/mixin.scss";
 $bg: #2d3a4b;
-$dark_gray: #889aa4;
 $light_gray: #eee;
 $focused: #20a0ff;
+
 .login-container {
-  @include relative;
   height: 100vh;
   background-color: $bg;
-  input:-webkit-autofill {
+  & input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #293444 inset !important;
     -webkit-text-fill-color: #fff !important;
   }
-  input {
+  & input {
     background: transparent;
     border: 0px;
     -webkit-appearance: none;
@@ -20,27 +18,17 @@ $focused: #20a0ff;
     color: $light_gray;
     height: 47px;
   }
-  .el-input {
+  & .el-input {
     display: inline-block;
     height: 47px;
     width: 85%;
   }
-  .tips {
+  & .tips {
     font-size: 14px;
     color: #fff;
     margin-bottom: 10px;
   }
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-    &_login {
-      font-size: 20px;
-    }
-  }
-  .title {
+  & .title {
     font-size: 26px;
     font-weight: 400;
     color: $light_gray;
@@ -48,7 +36,7 @@ $focused: #20a0ff;
     text-align: center;
     font-weight: bold;
   }
-  .login-form {
+  & .login-form {
     position: absolute;
     left: 0;
     right: 0;
@@ -56,26 +44,27 @@ $focused: #20a0ff;
     padding: 35px 35px 15px 35px;
     margin: 120px auto;
   }
-  .el-form-item {
+  & .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
+
+    & .icon-prefix {
+      color: #888;
+      margin: 0 -5px 0 14px;
+    }
+
+    & .icon-suffix {
+      color: #888;
+      font-size: 16px;
+      cursor: pointer;
+      &.show-pwd {
+        color: #ccc;
+      }
+    }
   }
-  .show-pwd {
-    position: absolute;
-    right: 10px;
-    top: 7px;
-    font-size: 16px;
-    color: $dark_gray;
-    cursor: pointer;
-  }
-  .thirdparty-button {
-    position: absolute;
-    right: 35px;
-    bottom: 28px;
-  }
-  .btn-submit {
+  & .btn-submit {
     width: 100%;
     margin-bottom: 30px;
   }

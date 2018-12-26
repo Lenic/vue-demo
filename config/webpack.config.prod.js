@@ -1,53 +1,38 @@
-import path from 'path';
-import webpack from 'webpack';
-import merge from 'webpack-merge';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
-import CompressionWebpackPlugin from 'compression-webpack-plugin';
+const path = require('path');
+const webpack = require('webpack');
+const merge = require('webpack-merge');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 
-import config from './webpack.config';
+const config = require('./webpack.config');
 
 function resolve(dir) {
   return path.join(__dirname, dir);
 }
 
-export default merge(config, {
+module.exports = merge(config, {
   output: {
     publicPath: '/',
     filename: 'js/[name]-[chunkhash:8].js',
     path: resolve('../dist'),
-    chunkFilename: 'js/chunks/[id]-[chunkhash:8].js',
+    chunkFilename: 'js/chunks/[id]-[chunkhash:8].js'
   },
   module: {
     rules: [
-      {
-        test: /\.global\.scss$/,
-        exclude: /\.attached\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                minimize: true,
-              },
-            },
-            { loader: 'sass-loader' },
-          ],
-          publicPath: '/',
-        }),
-      },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         use: {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'images/[name]-[hash:8].[ext]',
-          },
-        },
+            name: 'images/[name]-[hash:8].[ext]'
+          }
+        }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -55,33 +40,33 @@ export default merge(config, {
           loader: 'url-loader',
           options: {
             limit: 10000,
-            name: 'fonts/[name]-[hash:8].[ext]',
-          },
-        },
-      },
-    ],
+            name: 'fonts/[name]-[hash:8].[ext]'
+          }
+        }
+      }
+    ]
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"',
-      },
+        NODE_ENV: '"production"'
+      }
     }),
     new UglifyJSPlugin({
       uglifyOptions: {
         ie8: false,
         output: {
           comments: false,
-          beautify: false,
+          beautify: false
         },
         mangle: {
-          keep_fnames: true,
+          keep_fnames: true
         },
         compress: {
           warnings: false,
-          drop_console: true,
-        },
-      },
+          drop_console: true
+        }
+      }
     }),
     new HtmlWebpackPlugin({
       title: '运营模版系统',
@@ -89,21 +74,32 @@ export default merge(config, {
         minifyJS: true,
         minifyCSS: true,
         removeComments: true,
-        collapseWhitespace: true,
+        collapseWhitespace: true
       },
       template: resolve('index.html'),
-      inlineSource: /manifest-.+\.js$/,
+      inlineSource: /runtime-.+\.js$/
     }),
+    new HtmlWebpackInlineSourcePlugin(),
     new CompressionWebpackPlugin({
-      asset: '[path].gz[query]',
+      filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.(js|html|css|svg)$/,
       threshold: 10240,
-      minRatio: 0.8,
+      minRatio: 0.8
     }),
-    new ExtractTextPlugin('css/[name]-[contenthash:8].css'),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name]-[chunkhash:8].css',
+      chunkFilename: 'css/[id]-[chunkhash:8].css'
+    }),
+    new OptimizeCSSAssetsPlugin({
+      assetNameRegExp: /\.css/g,
+      cssProcessor: require('cssnano'),
+      cssProcessorOptions: { discardComments: { removeAll: true } },
+      canPrint: true
+    })
+
     // new BundleAnalyzerPlugin({
     //   openAnalyzer: false,
     // }),
-  ],
+  ]
 });

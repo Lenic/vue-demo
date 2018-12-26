@@ -1,15 +1,15 @@
-import ip from 'ip';
-import webpack from 'webpack';
-import bodyParser from 'body-parser';
-import Express, { Router } from 'express';
-import history from 'connect-history-api-fallback';
-import proxyMiddleware from 'http-proxy-middleware';
-import webpackMiddleware from 'webpack-dev-middleware';
+const webpack = require('webpack');
+const Express = require('express');
+const bodyParser = require('body-parser');
+const history = require('connect-history-api-fallback');
+const proxyMiddleware = require('http-proxy-middleware');
+const webpackMiddleware = require('webpack-dev-middleware');
 
-import webpackConfig from '../../config/webpack.config.dev';
+const webpackConfig = require('../../config/webpack.config.dev');
 
-const app = new Express()
-  , defaultRouter = new Router();
+const { Router } = Express,
+  app = new Express(),
+  defaultRouter = new Router();
 
 // login
 const loginRouter = new Router();
@@ -30,26 +30,35 @@ app.use((req, res, next) => {
 app.use(history());
 
 if (process.env.PROXY) {
-  app.use(proxyMiddleware('/login', {
-    target: 'http://openportal.helianhealth.com:8010',
-    changeOrigin: true,
-  })).use(proxyMiddleware('/api', {
-    target: 'http://openportal.helianhealth.com:8010',
-    changeOrigin: true,
-  }));
+  app
+    .use(
+      proxyMiddleware('/login', {
+        target: 'http://openportal.helianhealth.com:8010',
+        changeOrigin: true
+      })
+    )
+    .use(
+      proxyMiddleware('/api', {
+        target: 'http://openportal.helianhealth.com:8010',
+        changeOrigin: true
+      })
+    );
 } else {
-  app.use(bodyParser.urlencoded({ extended: false }))
+  app
+    .use(bodyParser.urlencoded({ extended: false }))
     .use(bodyParser.json())
     .use(loginRouter)
     .use('/api', defaultRouter);
 }
 
-app.use(webpackMiddleware(webpack(webpackConfig), {
-  quiet: true,
-  stats: {
-    colors: true,
-    modules: false,
-  },
-}));
+app.use(
+  webpackMiddleware(webpack(webpackConfig), {
+    quiet: true,
+    stats: {
+      colors: true,
+      modules: false
+    }
+  })
+);
 
-app.listen(3000, () => console.log(`Listening on http://${ip.address()}:3000/`));
+app.listen(3000, () => console.log('Listening on http://localhost:3000/'));

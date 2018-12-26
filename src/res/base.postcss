@@ -1,0 +1,26 @@
+@import './variable.postcss';
+@import './mixins.postcss';
+
+body {
+  color: $color-brand;
+  font-size: $font-size;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    '微软雅黑', Arial, sans-serif;
+  @mixin transition $color-brand, 2s, ease-in;
+
+  & .header {
+    width: 10%;
+
+    & .title {
+      height: auto;
+    }
+  }
+}
+
+a {
+  color: black;
+
+  &:hover {
+    color: plum;
+  }
+}

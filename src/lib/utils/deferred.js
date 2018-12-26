@@ -2,7 +2,7 @@ module.exports = function() {
   var promise = {
     resolve: null,
     reject: null,
-    promise: null,
+    promise: null
   };
 
   var innerPromise = new Promise((resolve, reject) => {

@@ -1,6 +1,6 @@
 const resetFunc = (vi, store) => true; // eslint-disable-line
 
-export default function (moduleName, store, reset = resetFunc) {
+export default function(moduleName, store, reset = resetFunc) {
   return {
     beforeCreate() {
       if (store.getState && reset.call(this, this, store)) {
@@ -11,6 +11,6 @@ export default function (moduleName, store, reset = resetFunc) {
     },
     destroyed() {
       this.$store.unregisterModule(moduleName);
-    },
+    }
   };
 }

@@ -7,7 +7,7 @@ function mapDefaultEventBus() {
 }
 
 export const mapBus = () => ({
-  bus: mapDefaultEventBus,
+  bus: mapDefaultEventBus
 });
 
 export const mapBusEvent = mapper => {
@@ -17,6 +17,6 @@ export const mapBusEvent = mapper => {
     },
     beforeDestroy() {
       _.map(mapper, (v, k) => this.bus.$off(k, this[v]));
-    },
+    }
   };
 };

@@ -1,21 +1,21 @@
 import getPascalName from '../utils/pascal-name';
 
-export default function (propertyName, wait = 100) {
-  const pascalPropertyName = getPascalName(propertyName)
-    , currentName = `current${pascalPropertyName}`
-    , delayName = `delaying${pascalPropertyName}`
-    , delayTokenName = `__delayToken${pascalPropertyName}`;
+export default function(propertyName, wait = 100) {
+  const pascalPropertyName = getPascalName(propertyName),
+    currentName = `current${pascalPropertyName}`,
+    delayName = `delaying${pascalPropertyName}`,
+    delayTokenName = `__delayToken${pascalPropertyName}`;
 
   return {
     data: () => ({
       [currentName]: null,
-      [delayName]: false,
+      [delayName]: false
     }),
     beforeMount() {
       this[currentName] = this[propertyName];
     },
     watch: {
-      [propertyName]: function (val, oldVal) {
+      [propertyName]: function(val, oldVal) {
         if (this[delayTokenName]) {
           clearTimeout(this[delayTokenName]);
           this[delayTokenName] = null;
@@ -33,7 +33,7 @@ export default function (propertyName, wait = 100) {
             }, wait);
           }
         }
-      },
-    },
+      }
+    }
   };
 }

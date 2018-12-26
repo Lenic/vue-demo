@@ -8,14 +8,14 @@ export default {
       {
         path: '/',
         icon: '&#xe926;',
-        name: '活动列表',
+        name: '活动列表'
       },
       {
         path: '/dd',
         icon: '&#xe926;',
-        name: '奖品列表',
-      },
-    ],
+        name: '奖品列表'
+      }
+    ]
   },
-  mutations: defaultMutations,
+  mutations: defaultMutations
 };

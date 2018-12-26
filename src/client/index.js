@@ -8,7 +8,7 @@ import layout from './layout';
 import './common/exception';
 import Auth from './common/auth';
 
-import './common/css';
+import '$res';
 
 Vue.use(Vuex);
 Vue.use(Router);
@@ -25,7 +25,7 @@ new Vue({
   render: h => h('router-view'),
   store: new Vuex.Store({
     state: {
-      bus: new Vue(),
-    },
-  }),
+      bus: new Vue()
+    }
+  })
 });
