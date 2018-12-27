@@ -5,7 +5,6 @@ import ElementUI from 'element-ui';
 
 import login from './login';
 import layout from './layout';
-import './common/exception';
 import Auth from './common/auth';
 
 import '$res';
@@ -17,15 +16,11 @@ Vue.config.productionTip = false;
 
 const router = new Router({ routes: [login, layout] });
 
-Auth.validate(router);
+Auth.init(router);
 
 new Vue({
   router,
   el: '#container',
+  store: new Vuex.Store(),
   render: h => h('router-view'),
-  store: new Vuex.Store({
-    state: {
-      bus: new Vue()
-    }
-  })
 });

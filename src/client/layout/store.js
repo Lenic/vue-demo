@@ -1,4 +1,4 @@
-import { defaultMutations } from '$lib/utils/default-mutations';
+import { defaultMutations } from '$lib/utils/defaultMutations';
 
 export default {
   namespaced: true,

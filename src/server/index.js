@@ -7,58 +7,33 @@ const webpackMiddleware = require('webpack-dev-middleware');
 
 const webpackConfig = require('../../config/webpack.config.dev');
 
-const { Router } = Express,
-  app = new Express(),
-  defaultRouter = new Router();
+const app = new Express(),
+  defaultRouter = new Express.Router();
 
-// login
-const loginRouter = new Router();
-require('./logic/login')(loginRouter);
-
-// add mock logic
-require('./logic/users')(defaultRouter);
-require('./logic/charge')(defaultRouter);
-require('./logic/monitor')(defaultRouter);
-require('./logic/station')(defaultRouter);
-
-app.use((req, res, next) => {
-  console.log('Request URL:', req.url);
-
-  next();
-});
-
-app.use(history());
+app
+  .use((req, res, next) => console.log('Request URL:', req.url) || next())
+  .use(history())
+  .use(bodyParser.urlencoded({ extended: false }))
+  .use(bodyParser.json())
+  .use('/api', require('./logic')(defaultRouter));
 
 if (process.env.PROXY) {
-  app
-    .use(
-      proxyMiddleware('/login', {
-        target: 'http://openportal.helianhealth.com:8010',
-        changeOrigin: true
-      })
-    )
-    .use(
-      proxyMiddleware('/api', {
-        target: 'http://openportal.helianhealth.com:8010',
-        changeOrigin: true
-      })
-    );
-} else {
-  app
-    .use(bodyParser.urlencoded({ extended: false }))
-    .use(bodyParser.json())
-    .use(loginRouter)
-    .use('/api', defaultRouter);
+  app.use(
+    proxyMiddleware('/api', {
+      target: 'http://127.0.0.1:8080',
+      changeOrigin: true
+    })
+  );
 }
 
-app.use(
-  webpackMiddleware(webpack(webpackConfig), {
-    quiet: true,
-    stats: {
-      colors: true,
-      modules: false
-    }
-  })
-);
-
-app.listen(3000, () => console.log('Listening on http://localhost:3000/'));
+app
+  .use(
+    webpackMiddleware(webpack(webpackConfig), {
+      quiet: true,
+      stats: {
+        colors: true,
+        modules: false
+      }
+    })
+  )
+  .listen(3000, () => console.log('Listening on http://localhost:3000/'));

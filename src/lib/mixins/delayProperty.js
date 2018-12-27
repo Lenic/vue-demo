@@ -1,6 +1,6 @@
-import getPascalName from '../utils/pascal-name';
+import getPascalName from '../utils/pascalName';
 
-export default function(propertyName, wait = 100) {
+export default function(propertyName, wait = 200) {
   const pascalPropertyName = getPascalName(propertyName),
     currentName = `current${pascalPropertyName}`,
     delayName = `delaying${pascalPropertyName}`,

@@ -1,3 +1,3 @@
-import './use-style';
-import './link-store';
-import './delay-property';
+import './useStyle';
+import './linkStore';
+import './delayProperty';

@@ -13,20 +13,17 @@
 <script>
 import { mapState } from 'vuex';
 
-import useStyle from '$lib/mixins/use-style';
-import linkStore from '$lib/mixins/link-store';
-import { mapDefaultMutations } from '$lib/utils/default-mutations';
+import linkStore from '$lib/mixins/linkStore';
+import { mapDefaultMutations } from '$lib/utils/defaultMutations';
 
 import sidebar from './sidebar';
 import navbar from './navbar';
 import store from './store';
 
-import style from './css';
-
 const moduleName = 'modules';
 
 export default {
-  mixins: [linkStore(moduleName, store), useStyle(style)],
+  mixins: [linkStore(moduleName, store)],
   components: { sidebar, navbar },
   computed: {
     ...mapState(moduleName, ['isSidebarOpened', 'menus'])

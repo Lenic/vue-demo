@@ -1,6 +1,6 @@
 import _ from 'underscore';
 
-import getPascalName from './pascal-name';
+import getPascalName from './pascalName';
 
 export function mapLazyObject(propertyName, defaultValue = {}) {
   return {

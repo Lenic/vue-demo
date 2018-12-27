@@ -58,6 +58,7 @@ module.exports = {
       '~': resolve('client'),
       $lib: resolve('lib'),
       $res: resolve('res'),
+      $config: resolve('client/common'),
       vue$: 'vue/dist/vue.runtime.esm.js'
     }
   },

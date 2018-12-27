@@ -635,6 +635,18 @@
   resolved "http://registry.npm.taobao.org/@csstools/convert-colors/download/@csstools/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha1-rUldxBsS511YjG24uYNPCPoTHrc=
 
+"@lenic/api-factory@^1.0.6":
+  version "1.0.6"
+  resolved "http://registry.npm.taobao.org/@lenic/api-factory/download/@lenic/api-factory-1.0.6.tgz#daa4de1c43112cce49f86c0e9faca8fac3f43efd"
+  integrity sha1-2qTeHEMRLM5J+GwOn6yo+sP0Pv0=
+  optionalDependencies:
+    axios "^0.18.0"
+
+"@lenic/deferred@^1.0.2":
+  version "1.0.2"
+  resolved "http://registry.npm.taobao.org/@lenic/deferred/download/@lenic/deferred-1.0.2.tgz#07ab353dda7c1e8860e089fffb55f13385031125"
+  integrity sha1-B6s1Pdp8Hohg4In/+1XxM4UDESU=
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "http://registry.npm.taobao.org/@mrmlnc/readdir-enhanced/download/@mrmlnc/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"

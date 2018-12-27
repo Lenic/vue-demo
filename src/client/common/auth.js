@@ -1,17 +1,13 @@
 import _ from 'underscore';
 import Cookies from 'js-cookie';
 
-import { setup } from '$lib/utils/api-factory';
-
-/* eslint-disable */
-let authInfo = {
+export const authInfo = {
   uid: Cookies.get('uid') || null,
   token: Cookies.get('token') || null
 };
-/* eslint-enable */
 
 const obj = {
-  validate: router => {
+  init: router => {
     authInfo.router = router;
 
     router.beforeEach((to, from, next) => {
@@ -40,11 +36,6 @@ const obj = {
       Cookies.remove('token');
       Cookies.remove('mobile');
 
-      setup(axios => {
-        axios.defaults.headers.common.uid = null;
-        axios.defaults.headers.common.token = null;
-      });
-
       authInfo.router &&
         authInfo.router.push({
           path: '/login',
@@ -57,11 +48,6 @@ const obj = {
       Cookies.set('uid', uid);
       Cookies.set('token', token);
       Cookies.set('mobile', mobile);
-
-      setup(axios => {
-        axios.defaults.headers.common.uid = uid;
-        axios.defaults.headers.common.token = token;
-      });
     }
   }
 };

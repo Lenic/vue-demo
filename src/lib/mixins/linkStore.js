@@ -1,4 +1,4 @@
-const resetFunc = (vi, store) => true; // eslint-disable-line
+const resetFunc = () => true;
 
 export default function(moduleName, store, reset = resetFunc) {
   return {

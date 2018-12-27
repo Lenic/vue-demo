@@ -1,2 +1,1 @@
-import './chart';
 import './loading';
