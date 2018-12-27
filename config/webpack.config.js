@@ -68,20 +68,28 @@ module.exports = {
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
   optimization: {
+    runtimeChunk: {
+      name: 'runtime'
+    },
     splitChunks: {
       chunks: 'all',
       minSize: 30000,
+      maxSize: 0,
       minChunks: 1,
       maxAsyncRequests: 5,
       maxInitialRequests: 3,
+      automaticNameDelimiter: '.',
       name: true,
       cacheGroups: {
-        default: false,
-        vendors: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial',
-          priority: -10,
-          name: 'vendors'
+          name: 'vendor',
+          chunks: 'initial'
+        },
+        async: {
+          name: true,
+          chunks: 'async',
+          test: /[\\/]node_modules[\\/]/
         }
       }
     }

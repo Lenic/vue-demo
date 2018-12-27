@@ -17,7 +17,7 @@ module.exports = merge(config, {
     publicPath: '/',
     filename: 'js/[name].js',
     path: resolve('../dist'),
-    chunkFilename: 'js/chunks/[id].js'
+    chunkFilename: 'js/chunks/[name].js'
   },
   module: {
     rules: [
@@ -56,7 +56,7 @@ module.exports = merge(config, {
     new HtmlWebpackInlineSourcePlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
-      chunkFilename: 'css/chunks/[id].css'
+      chunkFilename: 'css/chunks/[name].css'
     })
     // new BundleAnalyzerPlugin({
     //   openAnalyzer: false,

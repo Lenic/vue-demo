@@ -20,7 +20,7 @@ module.exports = merge(config, {
     publicPath: '/',
     filename: 'js/[name]-[chunkhash:8].js',
     path: resolve('../dist'),
-    chunkFilename: 'js/chunks/[id]-[chunkhash:8].js'
+    chunkFilename: 'js/chunks/[name]-[chunkhash:8].js'
   },
   module: {
     rules: [
@@ -84,12 +84,12 @@ module.exports = merge(config, {
       filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.(js|html|css|svg)$/,
-      threshold: 10240,
+      threshold: 1024 * 30,
       minRatio: 0.8
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name]-[chunkhash:8].css',
-      chunkFilename: 'css/[id]-[chunkhash:8].css'
+      chunkFilename: 'css/[name]-[chunkhash:8].css'
     }),
     new OptimizeCSSAssetsPlugin({
       assetNameRegExp: /\.css/g,
@@ -97,7 +97,6 @@ module.exports = merge(config, {
       cssProcessorOptions: { discardComments: { removeAll: true } },
       canPrint: true
     })
-
     // new BundleAnalyzerPlugin({
     //   openAnalyzer: false,
     // }),

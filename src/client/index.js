@@ -22,5 +22,5 @@ new Vue({
   router,
   el: '#container',
   store: new Vuex.Store(),
-  render: h => h('router-view'),
+  render: h => h('router-view')
 });

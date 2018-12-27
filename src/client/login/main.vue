@@ -31,16 +31,17 @@
           v-model="loginForm.password"
           @keyup.enter.native="handleLogin"
         />
-        <i @click="showPwd" class="el-icon-view icon-suffix" :class="{'show-pwd': !pwdType}"/>
+        <i @click="showPwd" class="el-icon-view icon-suffix" :class="{ 'show-pwd': !pwdType }" />
       </el-form-item>
 
       <el-button
         type="primary"
         class="btn-submit"
-        :loading="currentIsLoading"
         native-type="submit"
+        :loading="currentIsLoading"
         @click.native.prevent="handleLogin"
-      >登录</el-button>
+        >登录</el-button
+      >
     </el-form>
   </div>
 </template>
@@ -121,10 +122,7 @@ export default {
             this.isLoading = false;
 
             Auth.setAuth(res.uid, res.token, res.mobile);
-            this.$router.push({
-              name: '首页',
-              params: { abc: 'test-parameter' }
-            });
+            this.$router.push(this.$route.query.redirect || '/');
           } catch (e) {
             this.currentIsLoading = false;
             this.isLoading = false;

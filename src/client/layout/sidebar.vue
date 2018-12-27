@@ -4,8 +4,8 @@
     text-color="#fff"
     :collapse="!isOpened"
     default-active="1-4-1"
-    background-color="#545C64"
-    active-text-color="#ffd04b"
+    background-color="#333B58"
+    active-text-color="#FFE12A"
     :collapse-transition="true"
     class="el-menu-vertical-demo"
   >
