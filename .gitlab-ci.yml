@@ -9,21 +9,17 @@ cache:
 install_deps:
   stage: install_deps
   tags:
-    - fed
+    - node10
   only:
-    - dev
     - master
-    - sprint/restart
   script:
-    - npm i --registry=http://registry.npm.taobao.org
+    - yarn
 # 部署测试服务器
 upload:
   stage: upload
   tags:
-    - fed
+    - node10
   only:
-    - dev
     - master
-    - sprint/restart
   script:
-    - npm run upload -- --commitid `git rev-parse HEAD` --branch $CI_COMMIT_REF_NAME --suffix $CI_PIPELINE_ID
+    - npx cross-env buildType=dev commitid=`git rev-parse HEAD` branchName=$CI_COMMIT_REF_NAME notificationUrl=https://oapi.dingtalk.com/robot/send?access_token=18950ef237a80508add81a804191ab07c51f543be7766772b115791b39293601 /bin/bash ./build.sh --suffix=$CI_PIPELINE_ID
