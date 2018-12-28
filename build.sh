@@ -107,7 +107,7 @@ cat <<EOF
   "msgtype": "markdown",
   "markdown": {
     "title":"打包结果：${name}",
-    "text":"### 自动打包成功  \n下载地址：[点我下载](${uploadUrl})  \n项目名称：${name}  \n版本信息：${version}  \n所属分支：${branchName}  \n提交号码：${commitid}  \n打包时间：${currentDate}  \n自动部署：[点我部署](http://t.helianshare.com:8006/?url=${encodedUrl})"
+    "text":"### 自动打包成功  \n下载地址：[点我下载](${uploadUrl})  \n项目名称：${name}  \n版本信息：${version}  \n所属分支：${branchName}  \n提交号码：${commitid:0:8}  \n打包时间：${currentDate}  \n自动部署：[点我部署](http://t.helianshare.com:8006/?url=${encodedUrl})"
   },
   "at": {
     "isAtAll": true
